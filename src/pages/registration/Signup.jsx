@@ -1,12 +1,29 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom'
+import { MyContext } from '../../context/data/MyContext';
 
 function Signup() {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const context = useContext(MyContext)
+    const {loading, setLoading} = context
    
     return (
         <div className=' flex justify-center items-center h-screen'>
             <div className=' bg-gray-800 px-10 py-10 rounded-xl '>
                 <div className="">
                     <h1 className='text-center text-white text-xl mb-4 font-bold'>Signup</h1>
+                </div>
+                <div>
+                    <input type="text"
+                    value={name}
+                    onChange={(e)=> e.target.value}
+                        name='name'
+                        className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
+                        placeholder='Name'
+                    />
                 </div>
                 <div>
                     <input type="email"
