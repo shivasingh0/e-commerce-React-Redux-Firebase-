@@ -12,7 +12,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const cardItem = useSelector((state)=> state.cart) 
 
-  console.log(cardItem);
+  // console.log(cardItem);
 
   const addCart = () => {
     dispatch(addToCart("shirt"));
@@ -24,10 +24,10 @@ const Home = () => {
 
   return (
     <Layout>
-      <div className='d-flex justify-center gap-5'>
+      {/* <div className='d-flex justify-center gap-5'>
         <button className='bg-gray-300 p-5' onClick={() => addCart()}>add</button>
         <button className='bg-gray-300 p-5' onClick={()=> deleteCart()}>del</button>
-      </div>
+      </div> */}
       <HeroSection/>
       <Filter/>
       <ProductCard/>

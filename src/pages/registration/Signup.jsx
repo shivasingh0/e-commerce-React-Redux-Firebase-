@@ -2,9 +2,10 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { MyContext } from "../../context/data/MyContext";
 import { toast } from "react-toastify";
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth, fireDB } from '../../firebase/FirebaseConfig';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, fireDB } from "../../firebase/FirebaseConfig";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
+import Loader from "../../components/loader/Loader";
 
 function Signup() {
   const [name, setName] = useState("");
@@ -15,40 +16,39 @@ function Signup() {
   const { loading, setLoading } = context;
 
   const signup = async () => {
-    setLoading(true)
+    setLoading(true);
     if (name === "" || email === "" || password === "") {
-        toast.error("All fields required")
+      toast.error("All fields required");
     }
 
     try {
-        const users = await createUserWithEmailAndPassword(auth, email, password)
-        
-        // extract details from users
-        const user = {
-          name : name,
-          uid : users.user.uid,
-          email : users.user.email,
-          time : Timestamp.now()
-        }
+      const users = await createUserWithEmailAndPassword(auth, email, password);
 
-        // store details to the collection in dataBase
-        const useRef = collection(fireDB, 'users')
-        await addDoc(useRef, user)
-        toast.success("Signup Successfull!")
-        setName("")
-        setEmail("")
-        setPassword("")
-        setLoading(false)
+      // extract details from users
+      const user = {
+        name: name,
+        uid: users.user.uid,
+        email: users.user.email,
+        time: Timestamp.now(),
+      };
+
+      // store details to the collection in dataBase
+      const useRef = collection(fireDB, "users");
+      await addDoc(useRef, user);
+      toast.success("Signup Successfull!");
+      setName("");
+      setEmail("");
+      setPassword("");
+      setLoading(false);
     } catch (error) {
-       setLoading(false)
-        console.log(error);
+      toast.error("Signup Failed")
+      setLoading(false);
     }
-
-  }
+  };
 
   return (
     <div className=" flex justify-center items-center h-screen">
-    {loading && <Loader/>}
+      {loading && <Loader />}
       <div className=" bg-gray-800 px-10 py-10 rounded-xl ">
         <div className="">
           <h1 className="text-center text-white text-xl mb-4 font-bold">
@@ -85,7 +85,10 @@ function Signup() {
           />
         </div>
         <div className=" flex justify-center mb-3">
-          <button onClick={signup} className=" bg-red-500 w-full text-white font-bold  px-2 py-2 rounded-lg">
+          <button
+            onClick={signup}
+            className=" bg-red-500 w-full text-white font-bold  px-2 py-2 rounded-lg"
+          >
             Signup
           </button>
         </div>
