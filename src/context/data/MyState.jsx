@@ -58,6 +58,9 @@ function MyState(props) {
     try {
       await addDoc(productRef, addProducts); // This added the data into the firestore database
       toast.success("Product added successfully");
+      setTimeout(() => {
+        window.location.href = '/dashboard'
+      }, 800);
       setLoading(false);
       getAllproducts();
     } catch (error) {
@@ -67,7 +70,7 @@ function MyState(props) {
   };
 
   // ********************** Get Product Section  **********************
-  const [getAllProducts, setGetAllProducts] = useState([]);
+  const [getProducts, setGetProducts] = useState([]);
 
   const getAllproducts = async () => {
     setLoading(true);
@@ -83,7 +86,7 @@ function MyState(props) {
         QuerySnapshot.forEach((doc) => {
           productArray.push({ ...doc.data(), id: doc.id });
         });
-        setGetAllProducts(productArray);
+        setGetProducts(productArray);
         setLoading(false);
       }); // onSnapshot is used for realtime changes
     } catch (error) {
@@ -106,6 +109,7 @@ function MyState(props) {
         addProducts,
         setAddProducts,
         addProduct,
+        getProducts
       }}
     >
       {props.children}
