@@ -5,6 +5,7 @@ import { FiSun } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { MyContext } from "../../context/data/MyContext";
 import { RxCross2 } from "react-icons/rx";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -19,6 +20,8 @@ const Navbar = () => {
     localStorage.clear("uaer");
     window.location.href = "/login";
   };
+
+  const cartItems = useSelector((state)=>state.cart)
 
   return (
     <div className="bg-white sticky top-0 z-50">
@@ -335,7 +338,7 @@ const Navbar = () => {
                       className="ml-2 text-sm font-medium text-gray-700 group-"
                       style={{ color: mode === "dark" ? "white" : "" }}
                     >
-                      0
+                      {cartItems.length}
                     </span>
                     <span className="sr-only">items in cart, view bag</span>
                   </Link>

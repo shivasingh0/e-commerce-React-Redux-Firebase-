@@ -5,9 +5,12 @@ import {
   Timestamp,
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   onSnapshot,
   orderBy,
   query,
+  setDoc,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { fireDB } from "../../firebase/FirebaseConfig";
@@ -28,7 +31,7 @@ function MyState(props) {
   const [loading, setLoading] = useState(false);
 
   // ********************** Add Product Section  **********************
-  const [addProducts, setAddProducts] = useState({
+  const [products, setProducts] = useState({
     title: null,
     price: null,
     imageurl: null,
@@ -44,22 +47,22 @@ function MyState(props) {
 
   const addProduct = async () => {
     if (
-      addProducts.title == null ||
-      addProducts.price == null ||
-      addProducts.imageurl == null ||
-      addProducts.category == null ||
-      addProducts.description == null
+      products.title == null ||
+      products.price == null ||
+      products.imageurl == null ||
+      products.category == null ||
+      products.description == null
     ) {
       return toast.error("All fields are required");
     }
 
-    const productRef = collection(fireDB, "products"); // it's just a referance where we are going to s
+    const productRef = collection(fireDB, "products"); // it's just a referance where we are going to store
     setLoading(true);
     try {
-      await addDoc(productRef, addProducts); // This added the data into the firestore database
+      await addDoc(productRef, products); // This added the data into the firestore database
       toast.success("Product added successfully");
       setTimeout(() => {
-        window.location.href = '/dashboard'
+        window.location.href = "/dashboard";
       }, 800);
       setLoading(false);
       getAllproducts();
@@ -99,6 +102,42 @@ function MyState(props) {
     getAllproducts();
   }, []);
 
+  // ********************** Update Product Section  **********************
+  const editProduct = (item) => {
+    setProducts(item);
+  };
+
+  const updateProduct = async (item) => {
+    setLoading(true);
+    try {
+      await setDoc(doc(fireDB, "products", products.id), products);
+      toast.success("Product Updated successfully");
+      getAllproducts();
+      setLoading(false);
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 800);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+    setGetProducts("");
+  };
+
+  // ********************** Delete Product Section  **********************
+  const deleteProduct = async (item) => {
+    setLoading(true);
+    try {
+      await deleteDoc(doc(fireDB, "products", item.id));
+      toast.success("Product Deleted successfully");
+      setLoading(false);
+      getAllproducts();
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
   return (
     <MyContext.Provider
       value={{
@@ -106,10 +145,13 @@ function MyState(props) {
         toggleMode,
         loading,
         setLoading,
-        addProducts,
-        setAddProducts,
+        products,
+        setProducts,
         addProduct,
-        getProducts
+        getProducts,
+        editProduct,
+        updateProduct,
+        deleteProduct,
       }}
     >
       {props.children}

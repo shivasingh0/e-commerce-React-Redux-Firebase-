@@ -3,7 +3,7 @@ import { MyContext } from "../../../context/data/MyContext";
 
 function AddProduct() {
   const context = useContext(MyContext);
-  const { addProducts, setAddProducts, addProduct } = context;
+  const { products, setProducts, addProduct } = context;
 
   return (
     <div>
@@ -16,8 +16,8 @@ function AddProduct() {
           </div>
           <div>
             <input
-            value={addProducts.title}
-            onChange={(e)=>setAddProducts({...addProducts, title: e.target.value})}
+            value={products.title}
+            onChange={(e)=>setProducts({...products, title: e.target.value})}
               type="text"
               name="title"
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
@@ -26,8 +26,8 @@ function AddProduct() {
           </div>
           <div>
             <input
-            value={addProducts.price}
-            onChange={(e)=>setAddProducts({...addProducts, price: e.target.value})}
+            value={products.price}
+            onChange={(e)=>setProducts({...products, price: e.target.value})}
               type="text"
               name="price"
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
@@ -36,8 +36,8 @@ function AddProduct() {
           </div>
           <div>
             <input
-            value={addProducts.imageurl}
-            onChange={(e)=>setAddProducts({...addProducts, imageurl: e.target.value})}
+            value={products.imageurl}
+            onChange={(e)=>setProducts({...products, imageurl: e.target.value})}
               type="text"
               name="imageurl"
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
@@ -46,8 +46,8 @@ function AddProduct() {
           </div>
           <div>
             <input
-            value={addProducts.category}
-            onChange={(e)=>setAddProducts({...addProducts, category: e.target.value})}
+            value={products.category}
+            onChange={(e)=>setProducts({...products, category: e.target.value})}
               type="text"
               name="category"
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
@@ -56,8 +56,8 @@ function AddProduct() {
           </div>
           <div>
             <textarea
-            value={addProducts.description}
-            onChange={(e)=>setAddProducts({...addProducts, description: e.target.value})}
+            value={products.description}
+            onChange={(e)=>setProducts({...products, description: e.target.value})}
               cols="30"
               rows="10"
               name="description"
