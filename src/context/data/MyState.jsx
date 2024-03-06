@@ -66,6 +66,7 @@ function MyState(props) {
       }, 800);
       setLoading(false);
       getAllproducts();
+    
     } catch (error) {
       console.log(error);
       setLoading(false);
