@@ -7,6 +7,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDocs,
   onSnapshot,
   orderBy,
   query,
@@ -66,7 +67,7 @@ function MyState(props) {
       }, 800);
       setLoading(false);
       getAllproducts();
-    
+
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -139,6 +140,33 @@ function MyState(props) {
     }
   };
 
+  // ********************** Get order Section  **********************
+  const [order, setOrder] = useState([])
+
+  const getOrderData = async () => {
+    setLoading(true)
+
+    try {
+      const result = await getDocs(collection(fireDB, 'orders'))
+      const ordersArray = [];
+      result.forEach((doc) => {
+        ordersArray.push(doc.data());
+        setLoading(false)
+      })
+      setOrder(ordersArray)
+      setLoading(false)
+
+    } catch (error) {
+      console.log(error);
+      setLoading(false)
+    }
+
+  }
+
+  useEffect(() => {
+    getOrderData()
+  }, [])
+
   return (
     <MyContext.Provider
       value={{
@@ -153,6 +181,7 @@ function MyState(props) {
         editProduct,
         updateProduct,
         deleteProduct,
+        order
       }}
     >
       {props.children}
