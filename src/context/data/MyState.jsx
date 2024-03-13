@@ -167,6 +167,42 @@ function MyState(props) {
     getOrderData()
   }, [])
 
+  // ********************** Get users Section  **********************
+
+  const [user, setUser] = useState();
+
+  const getUserData = async () => {
+    setLoading(true)
+
+    try {
+      
+      const result = await getDocs(collection(fireDB, "users"));
+      const userDataArray = []
+      result.forEach((docs)=>{
+        userDataArray.push(docs.data());
+        setLoading(false)
+      })
+      setUser(userDataArray)
+      setLoading(false)
+
+    } catch (error) {
+      console.log(error);
+      setLoading(false)
+    }
+
+  }
+
+  useEffect(() => {
+    getUserData()
+  }, [])
+
+   // ********************** Filter Logics  **********************
+
+   const [searchKey, setSearchKey] = useState('')
+   const [filterType, setFilterType] = useState('')
+   const [filterPrice, setFilterPrice] = useState('')
+
+
   return (
     <MyContext.Provider
       value={{
@@ -181,7 +217,14 @@ function MyState(props) {
         editProduct,
         updateProduct,
         deleteProduct,
-        order
+        order,
+        user,
+        searchKey,
+        setSearchKey,
+        filterType,
+        setFilterType,
+        filterPrice,
+        setFilterPrice
       }}
     >
       {props.children}

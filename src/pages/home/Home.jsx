@@ -6,8 +6,15 @@ import Track from '../../components/track/Track'
 import Testimonial from '../../components/testimonial/Testimonial'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart, deleteFromCart } from '../../redux/CartSlice'
+import { useEffect } from 'react'
+import { useTitle } from '../../customHook/customHook'
 
 const Home = () => {
+  const title = useTitle()
+
+  useEffect(()=>{
+    title('Home')
+  },[])
 
   const dispatch = useDispatch();
   const cardItem = useSelector((state)=> state.cart) 

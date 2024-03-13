@@ -7,9 +7,16 @@ import { toast } from 'react-toastify';
 import { deleteFromCart } from '../../redux/CartSlice'
 import { addDoc, collection } from 'firebase/firestore';
 import { fireDB } from '../../firebase/FirebaseConfig';
+import { useTitle } from '../../customHook/customHook';
 
 
 function Cart() {
+
+  const title = useTitle()
+
+  useEffect(()=>{
+    title('Cart')
+  },[])
 
   const context = useContext(MyContext)
   const { mode } = context;
