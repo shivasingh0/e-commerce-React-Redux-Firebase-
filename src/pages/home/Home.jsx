@@ -31,10 +31,6 @@ const Home = () => {
 
   return (
     <Layout>
-      {/* <div className='d-flex justify-center gap-5'>
-        <button className='bg-gray-300 p-5' onClick={() => addCart()}>add</button>
-        <button className='bg-gray-300 p-5' onClick={()=> deleteCart()}>del</button>
-      </div> */}
       <HeroSection/>
       <Filter/>
       <ProductCard/>

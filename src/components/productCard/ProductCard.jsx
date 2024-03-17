@@ -50,9 +50,9 @@ function ProductCard() {
             .filter((obj) => obj.price.toLowerCase().includes(filterType))
             .filter((obj) => obj.price.includes(filterPrice))
             .map((item, index) => {
-              const { title, price, imageurl } = item;
+              const { title, price, imageurl, id } = item;
               return (
-                <div key={index} className="p-4 md:w-1/4  drop-shadow-lg ">
+                <div onClick={()=>window.location.href = `/productinfo/${id}`} key={index} className="p-4 md:w-1/4  drop-shadow-lg ">
                   <div
                     className="h-full border-2 hover:shadow-gray-100 hover:shadow-2xl transition-shadow duration-300 ease-in-out    border-gray-200 border-opacity-60 rounded-2xl overflow-hidden"
                     style={{
